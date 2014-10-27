@@ -1,0 +1,20 @@
+{# src/Actency/DMSBundle/Resources/views/Site/list.html.twig #}
+
+{% extends '::base.html.twig' %}
+
+{% block title %}Sites status{% endblock %}
+{% block page_title %}Sites status{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    <ul class="sites-list">
+    {% for site in sites_list %}
+        <li class="site-row">
+            <div class="site-wrapper"><div class="site-wrapper-inner">
+                  <h2>{{ site.url }}</h2>
+
+            </div></div>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

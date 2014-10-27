@@ -1,3 +1,16 @@
 actency_dms_homepage:
-    path:     /
-    defaults: { _controller: ActencyDMSBundle:Default:index }
+  path:     /
+  defaults: { _controller: ActencyDMSBundle:Default:index }
+
+actency_add_site:
+  path:     /site/add
+  defaults: { _controller: ActencyDMSBundle:Site:add }
+
+actency_edit_site:
+  path:     /site/{site}/edit
+  defaults: { _controller: ActencyDMSBundle:Site:edit }
+
+actency_sites_list:
+  path:     /sites
+  defaults: { _controller: ActencyDMSBundle:Site:list }
+

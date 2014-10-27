@@ -1,0 +1,35 @@
+<?php
+// src/Actency/DMSBundle/Entity/SiteGroup.php
+namespace Actency\DMSBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="sitegroup")
+ */
+class SiteGroup
+{
+  /**
+   * @ORM\Id
+   * @ORM\Column(type="integer")
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  protected $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $label;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Site", mappedBy="sitegroup")
+     */
+    protected $sites;
+
+    public function __construct()
+    {
+        $this->sites = new ArrayCollection();
+    }
+}

@@ -1,6 +1,3 @@
 actency_dms:
-    resource: "@ActencyDMSBundle/Resources/config/routing.yml"
-    prefix:   /
-
-
-
+  resource: "@ActencyDMSBundle/Resources/config/routing.yml"
+  prefix:   /

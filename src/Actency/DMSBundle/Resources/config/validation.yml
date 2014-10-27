@@ -1,0 +1,5 @@
+# Actency/DMSBundle/Ressources/config/validation.yml
+Actency\DMSBundle\Entity\Site:
+  properties:
+    url:
+      - NotBlank: ~

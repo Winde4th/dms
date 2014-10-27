@@ -1,0 +1,11 @@
+{# src/Actency/DMSBundle/Resources/views/Site/add.html.twig #}
+
+{% extends '::base.html.twig' %}
+
+{% block title %}Add new site{% endblock %}
+{% block page_title %}Add new site{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    {{ form(form, { 'style': 'horizontal' }) }}
+{% endblock %}

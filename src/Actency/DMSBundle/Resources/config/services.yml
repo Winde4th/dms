@@ -1,4 +1,5 @@
 services:
-#    actency_dms.example:
-#        class: Actency\DMSBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+  actency_dms.form.type.site:
+    class: Actency\DMSBundle\Form\Type\SiteType
+    tags:
+      - { name: form.type, alias: site }
