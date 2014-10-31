@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e967842f69818ef286fbf60ae576f095",
+    "hash": "a1c8f72abdbb02437f2e47cbef2d143c",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -672,6 +672,39 @@
                 "orm"
             ],
             "time": "2014-10-06 13:22:50"
+        },
+        {
+            "name": "geerlingguy/ping",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geerlingguy/Ping.git",
+                "reference": "c8abdcf09c4f6879d36fb3c190a12841f11b489f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geerlingguy/Ping/zipball/c8abdcf09c4f6879d36fb3c190a12841f11b489f",
+                "reference": "c8abdcf09c4f6879d36fb3c190a12841f11b489f",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "JJG/Ping.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeff Geerling",
+                    "email": "jeff@jeffgeerling.com"
+                }
+            ],
+            "description": "A PHP class to ping hosts.",
+            "time": "2014-06-27 18:28:50"
         },
         {
             "name": "incenteev/composer-parameter-handler",

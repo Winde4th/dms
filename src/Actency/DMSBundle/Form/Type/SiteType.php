@@ -16,7 +16,8 @@ class SiteType extends AbstractType
         'attr' => array(
           'input_group' => array(
             'prepend' => '.icon-globe'
-          )
+          ),
+          'help_text' => 'Starring with http(s), no ending slash'
         )
       ))
       ->add('secret', 'text', array(
@@ -24,7 +25,8 @@ class SiteType extends AbstractType
           'input_group' => array(
             'button_append' => array('name' => 'randomize', 'type' => 'button'),
             'prepend' => '.icon-lock'
-          )
+          ),
+          'help_text' => 'Token used to request site information'
         )
       ))
       ->add('actions', 'form_actions', [

@@ -1,11 +1,12 @@
 <?php
-
+// src/Actency/DMSBundle/Controller/SiteController.php
 namespace Actency\DMSBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Actency\DMSBundle\Entity\Site;
 use Symfony\Component\HttpFoundation\Request;
 use Actency\DMSBundle\Form\Type\SiteType;
+use Symfony\Component\Security\Core\Util\ClassUtils;
 
 class SiteController extends Controller
 {
@@ -65,8 +66,14 @@ class SiteController extends Controller
       );
     }
 
+    foreach ($sites_list as $site) {
+      $sites_list_report[$site->getId()]['report'] = $site->getReport('full');
+      $sites_list_report[$site->getId()]['latency'] = $site->getLatency();
+    }
+
     return $this->render('ActencyDMSBundle:Site:list.html.twig', array(
-      'sites_list' => $sites_list
+      'sites_list' => $sites_list,
+      'sites_reports' => $sites_list_report
     ));
   }
 }
