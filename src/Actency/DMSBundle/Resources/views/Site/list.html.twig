@@ -7,7 +7,7 @@
 
 {% block sidebar %}
     {{ parent() }}
-    <p class="lead">You currently are watching <strong >{{ sites_list|length }}</strong> drupal website(s).</p>
+    <p class="lead">You are currently watching <strong >{{ sites_list|length }}</strong> drupal website(s).</p>
 {% endblock %}
 {% block content %}
     {{ parent() }}
@@ -23,6 +23,7 @@
             <th class="site-users">Users</th>
             <th class="site-nodes">Nodes</th>
             <th class="site-hacked">Hacked</th>
+            <th class="site-logs">Logs</th>
             <th class="site-w3c">W3C</th>
             <th class="site-actions">Actions</th>
         </thead>
@@ -56,10 +57,18 @@
                             Up to date
                         {% else %}
                             {% if report['updates']['security'] is defined %}
-                                {{ label_danger(report['updates']['security']|length) }}
+                                {% set security_updates = '' %}
+                                {% for update in report['updates']['security']|keys %}
+                                    {% set security_updates = security_updates ~ "<br/>" ~ update %}
+                                {% endfor %}
+                                <a rel="popover" class="pp" title="Security" data-content="{{ security_updates|slice(5) }}" href="#">{{ label_danger(report['updates']['security']|length) }}</a>
                             {% endif %}
                             {% if report['updates']['recommended'] is defined %}
-                                {{ label_warning(report['updates']['recommended']|length) }}
+                                {% set recommended_updates = '' %}
+                                {% for update in report['updates']['recommended']|keys %}
+                                    {% set recommended_updates = recommended_updates ~ "<br/>" ~ update %}
+                                {% endfor %}
+                                <a rel="popover" class="pp" title="Recommended" data-content="{{ recommended_updates|slice(5) }}" href="#">{{ label_warning(report['updates']['recommended']|length) }}</a>
                             {% endif %}
                         {% endif %}
                     </td>
@@ -107,10 +116,11 @@
 
                         {% endif %}
                     </td>
+                    <td class="site-logs"></td>
                     <td class="site-w3c"></td>
                     <td class="site-actions"></td>
                 {% else %}
-                    <td colspan="9">{{ label_warning('Connection refused') }} This site does not respond to report request... Check your <a href="{{ path('actency_edit_site', {'site': site.getId}) }}">secret key configuration</a> and try again !</td>
+                    <td colspan="10">{{ label_warning('Connection refused') }} This site does not respond to report request... Check your <a href="{{ path('actency_edit_site', {'site': site.getId}) }}">secret key configuration</a> and try again !</td>
                 {% endif %}
             </tr>
         {% endfor %}
