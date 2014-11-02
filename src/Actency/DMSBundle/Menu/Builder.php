@@ -11,9 +11,8 @@ class Builder extends ContainerAware
   {
     $menu = $factory->createItem('root');
 
-    $menu->addChild('Sites status', array(
-      'route' => 'actency_sites_list',
-    ));
+    $menu->addChild('Sites status', array('route' => 'actency_sites_list'));
+    $menu->addChild('Add new site', array('route' => 'actency_add_site'));
 
     return $menu;
   }

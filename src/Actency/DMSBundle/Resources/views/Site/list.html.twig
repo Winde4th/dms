@@ -5,10 +5,14 @@
 {% block title %}Sites status{% endblock %}
 {% block page_title %}Sites status{% endblock %}
 
+{% block sidebar %}
+    {{ parent() }}
+    <p class="lead">You currently are watching <strong >{{ sites_list|length }}</strong> drupal website(s).</p>
+{% endblock %}
 {% block content %}
     {{ parent() }}
-    <table class="sites-list">
-        <caption>Sites status</caption>
+    <div class="table-responsive"><table id="sites-list" class="table table-striped table-bordered table-hover" data-toggle="table">
+        <caption class="text-right">Groupe 1</caption>
         <thead>
             <th class="site-status">Status</th>
             <th class="site-name">Sites</th>
@@ -27,9 +31,9 @@
             <tr class="site-row {% if latency == -1 %}site-disabled{% else %}site-enabled{% endif %}">
                 <td class="site-status">
                     {% if latency == -1 %}
-                        {{ label_danger('Ping Down') }}
+                        <a rel="tooltip" class="tt" title="This site does not respond to ping" href="#">{{ label_danger('Down') }}</a>
                     {% else %}
-                        {{ label_success('Ping Up') }} Latency: {{ label_info(latency ~ 'ms') }}
+                        <a rel="popover" class="pp" title="Ping up" data-content="Latency: {{ latency ~ 'ms' }}" href="#">{{ label_success('Up') }}</a>
                     {% endif %}
                 </td>
                 <td class="site-name"><a href="{{ site.url }}" target="_blank">{{ site.url }}</a></td>
@@ -38,13 +42,13 @@
                     <td class="site-core">
                     {% if report['updates']['drupal']['type'] is defined %}
                         {% if report['updates']['drupal']['type'] == 'security' %}
-                            <label>Current Version</label> {{ label_danger(report['updates']['drupal']['installed_version']) }}
+                            <a rel="popover" class="pp" title="Core update" data-content="Security update available: {{ report['updates']['drupal']['recommended_version']|slice(0, 4) }}" href="#">{{ label_danger(report['updates']['drupal']['installed_version']) }}</a>
                         {% else %}
-                            <label>Current Version</label> {{ label_warning(report['updates']['drupal']['installed_version']) }}
+                            {{ label_warning(report['updates']['drupal']['installed_version']) }}
+                            <a rel="popover" class="pp" title="Core update" data-content="Recommended update available: {{ report['updates']['drupal']['recommended_version']|slice(0, 4) }}" href="#">{{ label_danger(report['updates']['drupal']['installed_version']) }}</a>
                         {% endif %}
-                        <br/><label>Recommended</label> {{ label_primary(report['updates']['drupal']['recommended_version']) }}
                     {% else %}
-                        <label>Current Version</label> {{ label_info(report['system_status'][0]['value']) }}
+                        {{ label_info(report['system_status'][0]['value']) }}
                     {% endif %}
                     </td>
                     <td class="site-updates">
@@ -59,17 +63,56 @@
                             {% endif %}
                         {% endif %}
                     </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="site-languages">
+                        {% if report['statistics']['languages']['1'] is defined %}
+                            {% for lang in report['statistics']['languages']['1']|keys %}
+                                {% if lang == report['statistics']['language_default']['language'] %}
+                                    {{ label_info(lang|upper) }}
+                                {% else %}
+                                    {{ label(lang|upper) }}
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            {{ label('N/A') }}
+                        {% endif %}
+                    </td>
+                    <td class="site-features">
+                        {% if report['features']['error'] is defined %}
+                            <a rel="tooltip" class="tt" title="Features module is not enabled" href="#">{{ label('N/A') }}</a>
+                        {% else %}
+
+                        {% endif %}
+                    </td>
+                    <td class="site-users">
+                        {% if report['statistics']['users'] is defined %}
+                            {{ label_info(report['statistics']['users']) }}
+                        {% else %}
+                            {{ label('N/A') }}
+                        {% endif %}
+                    </td>
+                    <td class="site-nodes">
+                        {% if report['statistics']['nodes']['published'] is defined %}
+                            {{ label_info(report['statistics']['nodes']['published']) }}
+                        {% else %}
+                            {{ label('N/A') }}
+                        {% endif %}
+                        {% if report['statistics']['nodes']['unpublished'] is defined %}
+                            {{ label(report['statistics']['nodes']['unpublished']) }}
+                        {% endif %}
+                    </td>
+                    <td class="site-hacked">
+                        {% if report['hack']['error'] is defined %}
+                            <a rel="tooltip" class="tt" title="MD5Check module is not enabled" href="#">{{ label('N/A') }}</a>
+                        {% else %}
+
+                        {% endif %}
+                    </td>
+                    <td class="site-w3c"></td>
+                    <td class="site-actions"></td>
                 {% else %}
                     <td colspan="9">{{ label_warning('Connection refused') }} This site does not respond to report request... Check your <a href="{{ path('actency_edit_site', {'site': site.getId}) }}">secret key configuration</a> and try again !</td>
                 {% endif %}
             </tr>
         {% endfor %}
-    </table>
+    </table></div>
 {% endblock %}
